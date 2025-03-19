@@ -1,0 +1,17 @@
+#Lea el archivo CSV
+
+	ventas = pd.read_csv('datos_ventas.csv')
+
+
+#Calcule el total de ventas por producto. 
+
+  ventas['Total Venta'] = ventas['cantidad'] * ventas['precio_unitario']  #creacion de columna con el calculo de total venta
+
+  total_ventas = ventas.groupby('producto')['Total Venta'].sum().reset_index() #agrupacion de ventas por producto con la suma de los totales
+
+  total_ventas = total_ventas.sort_values(by='Total Venta', ascending=False) #ordenar el dataframe en orden descendente
+
+
+#Genere un archivo resumen_ventas.csv con los resultados. 
+
+  total_ventas.to_csv("resumen_ventas.csv", index=False)
